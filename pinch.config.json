@@ -1,9 +1,9 @@
 {
-	"urlSourcePath": "urls.json",
+	"urlSourcePath": "../sitemap.xml",
 	"elements":[
-		[{"heading": "Title"}, {"elementSelector": "//h1"}, {"elementValue": "innerText"}],
-		[{"heading": "Duration"}, {"elementSelector": "//div[contains(@class, 'icon-time')]/span[2]"}, {"elementValue": "innerText"}],
-		[{"heading": "Apply Link"}, {"elementSelector": "//a[@class='btn btn-large btn-primary']"}, {"elementValue": "href"}],
+		{"heading": "Title", "elementSelector": "//h1", "elementValue": "innerText"},
+		{"heading": "Duration", "elementSelector": "//div[contains(@class, 'icon-time')]/span[2]", "elementValue": "innerText"},
+		{"heading": "Apply Link", "elementSelector": "//a[@class='btn btn-large btn-primary']", "elementValue": "href"}
 	],
 	"allInstancesOfElement": false
 }
