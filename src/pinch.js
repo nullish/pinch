@@ -25,9 +25,14 @@ const pinch = async() => {
 function convertJson(inPath) {
 	// Converts an XML file to JSON object
 	const xmlFile = fs.readFileSync(inPath)
+	let arrUrls = []
 	const jsonEqv = parser.toJson(xmlFile)
   	const json = JSON.parse(jsonEqv)
-  	return json
+  	const urls = json.urlset.url
+  	for(u of urls) {
+  		arrUrls.push(u.loc)
+  	}
+  	return arrUrls
 }
 
 pinch()
