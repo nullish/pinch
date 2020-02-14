@@ -19,7 +19,14 @@ const pinch = async() => {
 	} else {
 		urlSet = JSON.parse(fs.readFileSync(cf.urlSourcePath))
 	}
-	console.log(urlSet)
+
+	// Set up header row
+	let headings = []
+	for(e of cf.elements) {
+		headings.push(e.heading)
+	}
+	const headerRow = `"` + headings.join(`","`) + `"`
+	console.log(headerRow)
 }
 
 function convertJson(inPath) {
