@@ -1,9 +1,12 @@
 {
-	"urlSourcePath": "../sitemap.xml",
+	"urlSourcePath": "./olp.json",
 	"elements":[
 		{"heading": "Title", "elementSelector": "//h1", "elementValue": "innerText"},
 		{"heading": "Duration", "elementSelector": "//div[contains(@class, 'icon-time')]/span[2]", "elementValue": "innerText"},
-		{"heading": "Apply Link", "elementSelector": "//a[@class='btn btn-large btn-primary']", "elementValue": "href"}
+		{"heading": "Lead image src", "elementSelector": "(//figure)[1]/img", "elementValue": "src"},
+		{"heading": "Lead image alt", "elementSelector": "(//figure)[1]/img", "elementValue": "alt"}
 	],
-	"allInstancesOfElement": false
+	"allInstancesOfElement": false,
+	"javascriptEnabled": true,
+	"defaultTimeOut": 30000
 }

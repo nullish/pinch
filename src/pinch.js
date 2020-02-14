@@ -116,4 +116,4 @@ function convertJson(inPath) {
 	return arrUrls
 }
 
-pinch()
+module.exports = pinch()
