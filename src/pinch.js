@@ -7,6 +7,7 @@
 const puppeteer = require('puppeteer')
 fs = require('fs')
 let parser = require('xml2json')
+const parallel = 8
 
 // MAIN MODULE TO EXPORT
 const pinch = async() => {
@@ -26,6 +27,12 @@ const pinch = async() => {
 		headings.push(e.heading)
 	}
 	const headerRow = `"` + headings.join(`","`) + `"`
+
+	const parallelBatches = Math.ceil(urlSet.length / parallel)
+
+	console.log(`Scraping ${urlSet.length} pages, in batches of ${parallel}`)
+
+	console.log(`This will result in ${parallelBatches} batches.`)
 	console.log(headerRow)
 }
 
@@ -34,12 +41,12 @@ function convertJson(inPath) {
 	const xmlFile = fs.readFileSync(inPath)
 	let arrUrls = []
 	const jsonEqv = parser.toJson(xmlFile)
-  	const json = JSON.parse(jsonEqv)
-  	const urls = json.urlset.url
-  	for(u of urls) {
-  		arrUrls.push(u.loc)
-  	}
-  	return arrUrls
+	const json = JSON.parse(jsonEqv)
+	const urls = json.urlset.url
+	for(u of urls) {
+		arrUrls.push(u.loc)
+	}
+	return arrUrls
 }
 
 pinch()
