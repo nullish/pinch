@@ -26,7 +26,7 @@ const pinch = async() => {
 	for(e of cf.elements) {
 		headings.push(e.heading)
 	}
-	const headerRow = `"timestamp","batch","url",` + headings.join(`","`) + `"`
+	const headerRow = `"timestamp","batch","url","` + headings.join(`","`) + `"`
 
 	const parallelBatches = Math.ceil(urlSet.length / parallel)
 
@@ -54,7 +54,7 @@ const pinch = async() => {
         // promises push
         promises.push(browser.newPage().then(async page => { 
         let timeStamp = new Date(Date.now()).toUTCString(); 
-        let outRow = `"${timeStamp}","${k}",${urlSet[elem]}"`        
+        let outRow = `"${timeStamp}","${k}","${urlSet[elem]}"`        
         	try {
             // Set default navigation timeout.
             await page.setDefaultNavigationTimeout(cf.defaultTimeout); 
@@ -80,6 +80,7 @@ const pinch = async() => {
 	              	break;
 	              	default:
 	              	txtOut = await page.evaluate((el,a) => el.getAttribute(a), elHandle[0], e.elementValue);
+	              	outRow += `,"${txtOut}"` 	              	
 	              }
 	          } else {
 	              // response if element not fiund on page
