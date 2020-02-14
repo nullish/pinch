@@ -1,5 +1,5 @@
 {
-  "name": "pinch",
+  "name": "@nullish/pinch",
   "version": "1.0.1",
   "description": "Puppeteer based general web scraper for node JS",
   "main": "index.js",
