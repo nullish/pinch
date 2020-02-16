@@ -19,11 +19,11 @@
  * "Headless Chrome" and scrape results from the results page.
  */
 
-'use strict';
+ 'use strict';
 
-const puppeteer = require('puppeteer');
+ const puppeteer = require('puppeteer');
 
-(async() => {
+ (async() => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -32,22 +32,35 @@ const puppeteer = require('puppeteer');
   // Wait for the results page to load and display the results.
   const resultsSelector = "a.m-snippet__link";
   await page.waitForSelector(resultsSelector);
+
+  // Identify total number of result pages
   const pageNumSelector = "//div[contains(@class,'m-pagination')]/span[@class='label'][2]"
   const pageNumEl = await page.$x(pageNumSelector)
   let pageNumVal = await page.evaluate((el) => el.innerText, pageNumEl[0])
   pageNumVal = pageNumVal.match(/[0-9]+$/g)[0]
 
+  // Get Next Page element to click
+  const nextPageSelector = "(//span[contains(@class,'chevron--right')])[2]"
+  const nextPageEl = await page.$x(nextPageSelector)
+
   console.log(pageNumVal)
 
   // Extract the results from the page.
-  const links = await page.evaluate(resultsSelector => {
-    const anchors = Array.from(document.querySelectorAll(resultsSelector));
-    return anchors.map(anchor => {
-      const title = anchor.textContent.split('|')[0].trim();
-      return `${title} - ${anchor.href}`;
-    });
-  }, resultsSelector);
-  console.log(links.join('\n'));
-}
-  await browser.close();
+  for (let i = 1; i < pageNumVal; i++) {
+    const links = await page.evaluate(resultsSelector => {
+      const anchors = Array.from(document.querySelectorAll(resultsSelector));
+      return anchors.map(anchor => {
+        const title = anchor.textContent.split('|')[0].trim();
+        return `${title} - ${anchor.href}`;
+      });
+    }, resultsSelector);
+    console.log(links.join('\n'));
+    /******TODO
+    Get URL and modify with increment of i.
+    */
+    
+    await page.click(nextPageEl);
+  }
+
+await browser.close();
 })();
