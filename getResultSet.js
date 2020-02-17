@@ -23,7 +23,7 @@
 
  const puppeteer = require('puppeteer');
 
- (async() => {
+ const getResults = async() => {
   const browser = await puppeteer.launch();
   let page = await browser.newPage();
 
@@ -39,25 +39,27 @@
   // Extract the results from the page.
 
   let resultsUrl, goUrl, resultsSelector, links, anchors, title
+  let outUrls = []
   
-  for (let i = 0; i < pageNumVal; i++) {
+  for (let i = 0; i < 20; i++) {
     resultsUrl = page.url()
     goUrl = resultsUrl.replace(/page=[0-9]+&/g, `page=${i}&`)
-    console.log(`I AM ON: ${resultsUrl}`)
     await page.goto(goUrl)
-    console.log(`I AM GOING TO: ${goUrl}`)
      // Wait for the results page to load and display the results.
     resultsSelector = "a.m-snippet__link";
      await page.waitForSelector(resultsSelector);
     links = await page.evaluate(resultsSelector => {
     anchors = Array.from(document.querySelectorAll(resultsSelector));
       return anchors.map(anchor => {
-         title = anchor.textContent.split('|')[0].trim();
-        return `${title} - ${anchor.href}`;
+        return `${anchor.href}`;
       });
     }, resultsSelector);
-     console.log(links.join('\n'));
+     //console.log(links.join('\n'));
+     outUrls = outUrls.concat(links)
+     console.log(outUrls)
    }
 
    await browser.close();
- })();
+ };
+
+module.exports = getResults()
