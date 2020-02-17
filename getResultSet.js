@@ -41,7 +41,7 @@
   let resultsUrl, goUrl, resultsSelector, links, anchors, title
   let outUrls = []
   
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     resultsUrl = page.url()
     goUrl = resultsUrl.replace(/page=[0-9]+&/g, `page=${i}&`)
     await page.goto(goUrl)
@@ -54,12 +54,13 @@
         return `${anchor.href}`;
       });
     }, resultsSelector);
-     //console.log(links.join('\n'));
      outUrls = outUrls.concat(links)
-     console.log(outUrls)
+     console.log(`${links.join('\n')}`)
    }
 
    await browser.close();
+   console.log(outUrls)
+   return outUrls
  };
 
 module.exports = getResults()
