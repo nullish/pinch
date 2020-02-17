@@ -1,5 +1,5 @@
 {
-	"urlSourcePath": "./inputs/olp.json",
+	"urlSourcePath": "./inputs/pinchlist.json",
 	"elements":[
 		{"heading": "Title", "elementSelector": "//h1", "elementValue": "innerText"},
 		{"heading": "Duration", "elementSelector": "//div[contains(@class, 'icon-time')]/span[2]", "elementValue": "innerText"},
