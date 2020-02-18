@@ -67,6 +67,7 @@
    const timeStamp = n.getTime()
    const outPath = `./inputs/pinchlist_${timeStamp}.json`
    fs.writeFileSync(outPath, jsonTxt)
+   console.log(`\nURL set built and saved to: ${outPath}`)
  };
 
  module.exports = getResults()
