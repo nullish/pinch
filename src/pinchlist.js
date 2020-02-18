@@ -25,13 +25,14 @@
  const puppeteer = require('puppeteer');
 
  const getResults = async() => {
+  const cf = require("../pinchlist.config.json")
   const browser = await puppeteer.launch();
   let page = await browser.newPage();
 
-  await page.goto('https://www.shu.ac.uk/courses');
+  await page.goto(cf.resultsURL);
 
   // Identify total number of result pages
-  const pageNumSelector = "//div[contains(@class,'m-pagination')]/span[@class='label'][2]"
+  const pageNumSelector = cf.pageNumSelector
   const pageNumEl = await page.$x(pageNumSelector)
   let pageNumVal = await page.evaluate((el) => el.innerText, pageNumEl[0])
   pageNumVal = pageNumVal.match(/[0-9]+$/g)[0]
@@ -42,12 +43,12 @@
   let resultsUrl, goUrl, resultsSelector, links, anchors, title
   let outUrls = []
   
-  for (let i = 0; i < pageNumVal; i++) {
+  for (let i = 0; i < 5; i++) {
     resultsUrl = page.url()
     goUrl = resultsUrl.replace(/page=[0-9]+&/g, `page=${i}&`)
     await page.goto(goUrl)
      // Wait for the results page to load and display the results.
-     resultsSelector = "a.m-snippet__link";
+     resultsSelector = cf.resultsSelector;
      await page.waitForSelector(resultsSelector);
      links = await page.evaluate(resultsSelector => {
       anchors = Array.from(document.querySelectorAll(resultsSelector));

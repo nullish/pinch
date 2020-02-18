@@ -1,0 +1,5 @@
+{
+	"resultsURL": "https://www.shu.ac.uk/courses",
+	"pageNumSelector": "//div[contains(@class,'m-pagination')]/span[@class='label'][2]",
+	"resultsSelector": "a.m-snippet__link"
+}
