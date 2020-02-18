@@ -63,7 +63,9 @@
 
    // Write results to JSON file
    const jsonTxt = JSON.stringify(outUrls)
-   const outPath = "./inputs/pinchlist.json"
+   const n = new Date(Date.now())
+   const timeStamp = n.getTime()
+   const outPath = `./inputs/pinchlist_${timeStamp}.json`
    fs.writeFileSync(outPath, jsonTxt)
  };
 
