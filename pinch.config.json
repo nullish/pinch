@@ -1,5 +1,5 @@
 {
-	"urlSourcePath": "./inputs/research.json",
+	"urlSourcePath": "./inputs/test.json",
 	"elements":[
 		{"heading": "Title", "elementSelector": "//h1", "elementValue": "innerText"},
 		{"heading": "GUID", "elementSelector": "//meta[@name='page-id']", "elementValue": "content"}
