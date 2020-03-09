@@ -44,14 +44,18 @@ const pinch = async() => {
 	for(e of cf.elements) {
 		headings.push(e.heading)
 	}
-	const headerRow = `"timestamp","batch","url","` + headings.join(`","`) + `"`
+	const headerRow = `"timestamp","batch","url","` + headings.join(`","`) + `"\n`
 
 	const parallelBatches = Math.ceil(urlSet.length / parallel)
 
 	console.log(`Scraping ${urlSet.length} pages, in batches of ${parallel}`)
 
 	console.log(`This will result in ${parallelBatches} batches.`)
-	console.log(headerRow)
+	await fs.appendFile(outfile, headerRow, (err) => {
+		if (err) throw err
+			console.log(headerRow)    
+	})
+	
 
 	// Split up the Array of urlSet
 	let k = 0
@@ -104,7 +108,7 @@ const pinch = async() => {
 	              	outRow += `,"${txtOut}"` 	              	
 	              }
 	          } else {
-	              // response if element not fiund on page
+	              // response if element not found on page
 	              outRow += `,"ELEMENT NOT FOUND"`
 	          }
 	      }
@@ -113,9 +117,10 @@ const pinch = async() => {
             let timeStamp = new Date(Date.now()).toUTCString();
             console.log(`"${timeStamp}","${k}","${urlSet[elem]}","","${err}"`)
         }
-        await fs.appendFile(outfile, outRow, (err) => {
+        // Add output row to file.
+        await fs.appendFile(outfile, `${outRow}\n`, (err) => {
         	if (err) throw err
-        	console.log(`${outRow}\n`)
+        		console.log(`${outRow}\n`)
         })
     }))
     }
