@@ -6,11 +6,21 @@
 
 const puppeteer = require('puppeteer')
 fs = require('fs')
+const yargs = require('yargs')
 let parser = require('xml2json')
 const parallel = 8
 
 // MAIN MODULE TO EXPORT
 const pinch = async() => {
+	// Command line parameters
+	const argv = yargs
+	.option('config', {
+		alias: 'c',
+		default: '../pinch.config.json',
+		describe: 'Config JSON file with settings to run',
+		type: 'string'
+	})
+	.argv
 	// Load config file
 	const cf = require("../pinch.config.json")
 	// If XML convert to JSON
@@ -53,8 +63,8 @@ const pinch = async() => {
         // Promise to scrape pages
         // promises push
         promises.push(browser.newPage().then(async page => { 
-        let timeStamp = new Date(Date.now()).toUTCString(); 
-        let outRow = `"${timeStamp}","${k}","${urlSet[elem]}"`        
+        	let timeStamp = new Date(Date.now()).toUTCString(); 
+        	let outRow = `"${timeStamp}","${k}","${urlSet[elem]}"`        
         	try {
             // Set default navigation timeout.
             await page.setDefaultNavigationTimeout(cf.defaultTimeout); 
@@ -90,13 +100,13 @@ const pinch = async() => {
 	              outRow += `,"ELEMENT NOT FOUND"`
 	          }
 	      }
-	      } catch (err) {
+	  } catch (err) {
             // Report failing element and standard error response
             let timeStamp = new Date(Date.now()).toUTCString();
             console.log(`"${timeStamp}","${k}","${urlSet[elem]}","","${err}"`)
         }
         console.log(outRow)
-}))
+    }))
     }
 }
 
