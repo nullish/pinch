@@ -20,9 +20,17 @@ const pinch = async() => {
 		describe: 'Config JSON file with settings to run',
 		type: 'string'
 	})
+	.option('output', {
+		alias: 'o',
+		default: './pinch.csv',
+		describe: 'Location of CSV output',
+		type: 'string'
+	})
 	.argv
 	// Load config file
 	const cf = require("../pinch.config.json")
+	// Get output file
+	const outfile = argv.output
 	// If XML convert to JSON
 	let urlSet
 	if (cf.urlSourcePath.match(/\.xml$/g)) {
@@ -105,7 +113,10 @@ const pinch = async() => {
             let timeStamp = new Date(Date.now()).toUTCString();
             console.log(`"${timeStamp}","${k}","${urlSet[elem]}","","${err}"`)
         }
-        console.log(outRow)
+        await fs.appendFile(outfile, outRow, (err) => {
+        	if (err) throw err
+        	console.log(`${outRow}\n`)
+        })
     }))
     }
 }
