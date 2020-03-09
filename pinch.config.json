@@ -1,10 +1,8 @@
 {
-	"urlSourcePath": "./inputs/pinchlist.json",
+	"urlSourcePath": "./inputs/research.json",
 	"elements":[
 		{"heading": "Title", "elementSelector": "//h1", "elementValue": "innerText"},
-		{"heading": "Duration", "elementSelector": "//div[contains(@class, 'icon-time')]/span[2]", "elementValue": "innerText"},
-		{"heading": "Lead image src", "elementSelector": "(//figure)[1]/img", "elementValue": "src"},
-		{"heading": "Lead image alt", "elementSelector": "(//figure)[1]/img", "elementValue": "alt"}
+		{"heading": "GUID", "elementSelector": "//meta[@name='page-id']", "elementValue": "content"}
 	],
 	"allInstancesOfElement": false,
 	"javascriptEnabled": true,
