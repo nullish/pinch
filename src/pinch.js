@@ -59,7 +59,10 @@ const pinch = async() => {
             // Set default navigation timeout.
             await page.setDefaultNavigationTimeout(cf.defaultTimeout); 
             // Goto page, wait for timeout as specified in JSON input
-            await page.goto(urlSet[elem])
+            let res = await page.goto(urlSet[elem])
+            // Get HTTP status code
+            // console.log(res.headers())
+
             // Element to wait for to confirm page load
             await page.waitForXPath("//title");
             // Loop through specified elements, writing out values to console
