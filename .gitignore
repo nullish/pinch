@@ -2,3 +2,4 @@ node_modules/*
 *.csv
 *.xl*
 inputs/*
+config/*
