@@ -22,13 +22,13 @@ const pinch = async() => {
 	})
 	.option('output', {
 		alias: 'o',
-		default: './pinch.csv',
+		default: './outputs/pinch.csv',
 		describe: 'Location of CSV output',
 		type: 'string'
 	})
 	.argv
 	// Load config file
-	const cf = require("../pinch.config.json")
+	const cf = require(argv.config)
 	// Get output file
 	const outfile = argv.output
 	// If XML convert to JSON
@@ -83,7 +83,6 @@ const pinch = async() => {
             // Goto page, wait for timeout as specified in JSON input
             let res = await page.goto(urlSet[elem])
             // Get HTTP status code
-            // console.log(res.headers())
 
             // Element to wait for to confirm page load
             await page.waitForXPath("//title");
