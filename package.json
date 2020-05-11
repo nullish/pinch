@@ -1,6 +1,6 @@
 {
   "name": "@nullish/pinch",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Puppeteer based general web scraper for node JS",
   "main": "index.js",
   "scripts": {
