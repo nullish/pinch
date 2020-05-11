@@ -1,5 +1,6 @@
 {
-	"resultsURL": "https://www.shu.ac.uk/courses",
-	"pageNumSelector": "//div[contains(@class,'m-pagination')]/span[@class='label'][2]",
-	"resultsSelector": "a.m-snippet__link"
+	"resultsURL": "https://www.bbc.co.uk/sounds/brand/b00nrtd2",
+	"pageNumSelector": "//a[@aria-label='View the next page']",
+	"pageNumAttribute": "href",
+	"resultsSelector": "div.gs-u-box-size.sw-qa-container-list > nav > ul > li > a"
 }

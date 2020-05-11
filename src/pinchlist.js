@@ -34,7 +34,17 @@
   // Identify total number of result pages
   const pageNumSelector = cf.pageNumSelector
   const pageNumEl = await page.$x(pageNumSelector)
-  let pageNumVal = await page.evaluate((el) => el.innerText, pageNumEl[0])
+
+  // Extract page number attribute either as inner text or DOM attribute
+  // If config gile specifies a value use that as atribute. If empty, use 'innerText'
+  let pageNumVal
+  if (cf.pageNumAttribute) {
+    pageNumVal = await page.evaluate((el,a) => el.getAttribute(a), pageNumEl[0], cf.pageNumAttribute);
+    console.log(`PAGE: ${pageNumVal}`)
+  } else {
+    pageNumVal = await page.evaluate((el) => el.innerText, pageNumEl[0])
+  }
+
   pageNumVal = pageNumVal.match(/[0-9]+$/g)[0]
 
 
@@ -43,7 +53,7 @@
   let resultsUrl, goUrl, resultsSelector, links, anchors, title
   let outUrls = []
   
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < pageNumVal; i++) {
     resultsUrl = page.url()
     goUrl = resultsUrl.replace(/page=[0-9]+&/g, `page=${i}&`)
     await page.goto(goUrl)
