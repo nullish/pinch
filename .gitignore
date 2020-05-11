@@ -3,3 +3,4 @@ node_modules/*
 *.xl*
 inputs/*
 config/*
+outputs/*

@@ -40,7 +40,6 @@
   let pageNumVal
   if (cf.pageNumAttribute) {
     pageNumVal = await page.evaluate((el,a) => el.getAttribute(a), pageNumEl[0], cf.pageNumAttribute);
-    console.log(`PAGE: ${pageNumVal}`)
   } else {
     pageNumVal = await page.evaluate((el) => el.innerText, pageNumEl[0])
   }
@@ -76,7 +75,7 @@
    const jsonTxt = JSON.stringify(outUrls)
    const n = new Date(Date.now())
    const timeStamp = n.getTime()
-   const outPath = `./inputs/pinchlist_${timeStamp}.json`
+   const outPath = `./outputs/pinchlist_${timeStamp}.json`
    fs.writeFileSync(outPath, jsonTxt)
    console.log(`\nURL set built and saved to: ${outPath}`)
  };
