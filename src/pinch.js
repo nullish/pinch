@@ -89,6 +89,7 @@ const pinch = async() => {
             // Loop through specified elements, writing out values to console
             for (e of cf.elements) {
             	let elHandle = await page.$x(e.elementSelector);
+            	console.log(elHandle);
             // Get attribute value to report
             if (elHandle.length > 0) {
 	              // Get HTML or text value of element if specified. Otherwise get value specified by attribute.
@@ -144,4 +145,4 @@ function convertJson(inPath) {
 	return arrUrls
 }
 
-module.exports = pinch()
+module.exports = pinch
